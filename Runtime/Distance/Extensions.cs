@@ -32,5 +32,11 @@ namespace Yonniie8.Unity.Utilities.Distance
             var isInRange = fromMonoBehaviour.transform.position.IsInRange(toPosition, distanceRangeSquared);
             return isInRange;
         }
+
+        public static float DistanceBetween(this MonoBehaviour firstObject, MonoBehaviour secondObject) => 
+            DistanceBetween(firstObject.transform.position, secondObject.transform.position);
+
+        public static float DistanceBetween(this Vector3 firstPosition, Vector3 secondPosition) => 
+            Vector3.Distance(firstPosition, secondPosition);
     }
 }
