@@ -1,13 +1,13 @@
 {
-    "name": "com.yonniie.unity.utilities",
-    "version": "0.0.1",
-    "displayName": "Yonniie Utilities",
-    "description": "Useful unity helpers, systems and extensions.",
-    "unity": "2022.3",
-    "unityRelease": "20f1",
-    "author": {
-        "name": "yonniie",
-        "email": "",
-        "url": ""
-    }
+  "name": "com.yonniie.unity.utilities",
+  "version": "0.0.1",
+  "displayName": "Yonniie8.Unity.Utilities",
+  "description": "Useful unity helpers, systems and extensions.",
+  "unity": "2022.3",
+  "unityRelease": "20f1",
+  "author": {
+    "name": "yonniie",
+    "email": "",
+    "url": ""
+  }
 }
