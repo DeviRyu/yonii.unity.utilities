@@ -11,7 +11,7 @@ namespace Yonniie8.Unity.Utilities.GameObj
         /// <param name="gameObject"></param>
         /// <param name="height"></param>
         /// <returns></returns>
-        public static bool TryGetHeight(this GameObject gameObject, out float? height)
+        public static bool TryGetHeight(this GameObject gameObject, out float height)
         {
             Bounds? gameObjectBounds = null;
 
@@ -54,7 +54,7 @@ namespace Yonniie8.Unity.Utilities.GameObj
                 }
             }
 
-            height = null;
+            height = 0;
             return false;
         }
     }
