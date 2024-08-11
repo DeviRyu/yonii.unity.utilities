@@ -1,6 +1,6 @@
 {
   "name": "com.yonniie.unity.utilities",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "displayName": "Yonniie8.Unity.Utilities",
   "description": "Useful unity helpers, systems and extensions.",
   "unity": "2022.3",
