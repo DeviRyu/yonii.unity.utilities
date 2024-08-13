@@ -39,10 +39,13 @@ namespace Yonniie8.Unity.Utilities.Components
             if (components == null || components.Length == 0)
             {
                 Debug.LogWarning(
-                    $"Could not find components of type {nameof(T)} in gameObject {transform.gameObject.name}");
+                    $"Could not find components of type {typeof(T)} in gameObject {transform.gameObject.name}");
             }
 
-            return components is { Length: > 1 };
+            return components is { Length: > 0 };
         }
+
+        public static bool TryGetComponentsInChildren<T>(this GameObject gameObject, out T[] components) =>
+            gameObject.transform.TryGetComponentsInChildren(out components);
     }
 }
