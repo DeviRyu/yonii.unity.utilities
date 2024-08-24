@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Yonniie8.Unity.Utilities.Components
+namespace Yonii8.Unity.Utilities.Components
 {
     public static class Extensions
     {
