@@ -1,4 +1,4 @@
-namespace Yonniie8.Unity.Utilities
+namespace Yonii8.Unity.Utilities
 {
     public static class StringExtensions
     {

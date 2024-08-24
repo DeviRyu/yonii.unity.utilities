@@ -1,13 +1,13 @@
 {
-  "name": "com.yonniie.unity.utilities",
+  "name": "com.yonii.stats",
   "version": "1.0.0",
-  "displayName": "Yonniie8.Unity.Utilities",
-  "description": "Useful unity helpers, systems and extensions.",
+  "displayName": "Yonii.Stats",
+  "description": "Modular stats",
   "unity": "2022.3",
-  "unityRelease": "20f1",
+  "unityRelease": "41f1",
   "author": {
-    "name": "yonniie",
-    "email": "",
+    "name": "yonii",
+    "email": "yonii@dragoonz.studio",
     "url": ""
   }
 }

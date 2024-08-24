@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Yonniie8.Unity.Utilities.GameObj
+namespace Yonii8.Unity.Utilities.GameObj
 {
     public static class Extensions
     {
