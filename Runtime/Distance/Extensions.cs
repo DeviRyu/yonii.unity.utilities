@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Yonii8.Unity.Utilities.Distance
+namespace Yonii.Unity.Utilities.Distance
 {
     public static class Extensions 
     {

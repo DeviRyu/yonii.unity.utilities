@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Yonii8.Unity.Utilities.CustomTypes
+namespace Yonii.Unity.Utilities.CustomTypes
 {
     [Serializable]
     public struct FloatRange
