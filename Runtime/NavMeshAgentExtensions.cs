@@ -12,5 +12,19 @@ namespace Yonii.Unity.Utilities
 
             return navMeshAgent;
         }
+
+        public static bool HasReachedDestination(
+            this NavMeshAgent navMeshAgent,
+            float distanceToCheck = .5f
+            )
+        {
+            if (navMeshAgent.pathPending) 
+                return false;
+
+            if (!(navMeshAgent.remainingDistance <= distanceToCheck))
+                return false;
+
+            return navMeshAgent.velocity.sqrMagnitude < distanceToCheck;
+        }
     }
 }
