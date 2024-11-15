@@ -13,12 +13,9 @@ namespace Yonii.Unity.Utilities.Distance
         /// <param name="toPosition">transform.position of a component</param>
         /// <param name="distanceRangeSquared">distance range needs to be squared</param>
         /// <returns></returns>
-        public static bool IsInRange(this Vector3 fromPosition, Vector3 toPosition, float distanceRangeSquared)
-        {
-            var distanceToPosition = fromPosition - toPosition;
-            return distanceToPosition.sqrMagnitude <= distanceRangeSquared;
-        }
-        
+        public static bool IsInRange(this Vector3 fromPosition, Vector3 toPosition, float distanceRangeSquared) => 
+            fromPosition.DistanceToPosition(toPosition).sqrMagnitude <= distanceRangeSquared;
+
         /// <summary>
         /// Calculate distance from your MonoBehaviour to a Vector3
         /// </summary>
@@ -33,10 +30,27 @@ namespace Yonii.Unity.Utilities.Distance
             return isInRange;
         }
 
+        public static bool IsInRange(this Transform transform,
+                                     Transform toTransform,
+                                     float distanceRangeSquared,
+                                     float maxAngle = 360f
+            )
+        {
+            var distanceToPosition = transform.position
+                .DistanceToPosition(toTransform.position)
+                .With(y: 0);
+            
+            return distanceToPosition.sqrMagnitude <= distanceRangeSquared && 
+                   Vector3.Angle(transform.forward, distanceToPosition) < maxAngle;
+        }
+
         public static float DistanceBetween(this MonoBehaviour firstObject, MonoBehaviour secondObject) => 
             DistanceBetween(firstObject.transform.position, secondObject.transform.position);
 
         public static float DistanceBetween(this Vector3 firstPosition, Vector3 secondPosition) => 
             Vector3.Distance(firstPosition, secondPosition);
+
+        public static Vector3 DistanceToPosition(this Vector3 fromPosition, Vector3 toPosition) =>
+            fromPosition - toPosition;
     }
 }
