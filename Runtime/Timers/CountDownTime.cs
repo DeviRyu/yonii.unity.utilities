@@ -1,8 +1,8 @@
 ﻿namespace Yonii.Unity.Utilities.Timers
 {
-    public sealed class CountDownTime : Timer
+    public sealed class CountDownTimer : Timer
     {
-        public CountDownTime(float time) : base(time)
+        public CountDownTimer(float time) : base(time)
         {
         }
 
