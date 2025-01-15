@@ -17,7 +17,7 @@ namespace Yonii.Unity.Utilities
                 style.marginTop = new StyleLength(allValue ?? top.Value);
 
             if (sameValue || bottom.HasValue)
-                style.bottom = new StyleLength(allValue ?? bottom.Value);
+                style.marginBottom = new StyleLength(allValue ?? bottom.Value);
 
             if (sameValue || right.HasValue)
                 style.marginRight = new StyleLength(allValue ?? right.Value);
