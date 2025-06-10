@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using Yonii.Utils.StringUtilities;
 
 namespace Yonii.Unity.Utilities.GameObj
 {
@@ -59,7 +60,7 @@ namespace Yonii.Unity.Utilities.GameObj
             height = 0;
             return false;
         }
-        
+
         /// <summary>
         /// In very specific cases when you know that the position of a child will not change in a Prefab/GameObject then you can specify the indexes directly.
         /// Ex: indexes = [1,4,3] -> Get First Child -> Get Fourth Child of First Child -> Get Third Child of Fourth child.
@@ -69,12 +70,11 @@ namespace Yonii.Unity.Utilities.GameObj
         /// <param name="childObject"></param>
         /// <param name="name">Optional parameter to perform a name check for the game object found.</param>
         /// <returns>Will return the child from the last specified index.</returns>
-        public static bool TryGetChildUsingMultiLayerIndexing(
-            this Transform transform,
-            List<int> indexes,
-            out GameObject childObject,
-            string name = null
-            )
+        public static bool TryGetChildUsingMultiLayerIndexing(this Transform transform,
+                                                              List<int> indexes,
+                                                              out GameObject childObject,
+                                                              string name = ""
+                                                              )
         {
             foreach (var index in indexes)
             {
@@ -94,7 +94,7 @@ namespace Yonii.Unity.Utilities.GameObj
                     childObject = null;
                     return false;
                 }
-                
+
                 transform = newTransform;
             }
 
@@ -111,7 +111,7 @@ namespace Yonii.Unity.Utilities.GameObj
         }
 
         /// <summary>
-        /// Will fully traverse each layer until it finds the child game object or until it hits max layer.
+        /// It will fully traverse each layer until it finds the child game object or until it hits max layer.
         /// </summary>
         /// <param name="transform"></param>
         /// <param name="name"></param>
@@ -119,8 +119,8 @@ namespace Yonii.Unity.Utilities.GameObj
         /// <param name="childObject"></param>
         /// <returns></returns>
         public static bool TryGetChild(
-            this Transform transform, 
-            string name, 
+            this Transform transform,
+            string name,
             int maxLayer,
             out GameObject childObject
         )
@@ -143,7 +143,7 @@ namespace Yonii.Unity.Utilities.GameObj
                     childObject = null;
                     return false;
                 }
-                
+
                 List<Transform> previousLayerObjects = null;
                 if (layer != 0)
                 {
@@ -176,7 +176,7 @@ namespace Yonii.Unity.Utilities.GameObj
                         )
                         return true;
                 }
-                
+
                 layer++;
             }
 
@@ -185,11 +185,11 @@ namespace Yonii.Unity.Utilities.GameObj
         }
 
         private static bool TrySearchForChildWhileBuildingLayerBasedDic(
-            int childCount, 
+            int childCount,
             Transform transform,
             string name,
             int layer,
-            Dictionary<int, List<Transform>> layerGameObjectDic, 
+            Dictionary<int, List<Transform>> layerGameObjectDic,
             out GameObject childObject
             )
         {
@@ -204,17 +204,17 @@ namespace Yonii.Unity.Utilities.GameObj
                     childObject = null;
                     return false;
                 }
-                
+
                 if (child.name != name)
                 {
                     if (!layerGameObjectDic.TryGetValue(layer, out var layerChildList))
                         layerGameObjectDic.TryAdd(layer, new List<Transform> { child });
                     else
                         layerChildList.Add(child);
-                    
+
                     continue;
                 }
-                
+
                 childObject = child.gameObject;
                 return true;
             }
