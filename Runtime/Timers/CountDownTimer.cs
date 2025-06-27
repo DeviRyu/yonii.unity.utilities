@@ -1,4 +1,6 @@
-﻿namespace Yonii.Unity.Utilities.Timers
+﻿using Cysharp.Threading.Tasks;
+
+namespace Yonii.Unity.Utilities.Timers
 {
     public sealed class CountDownTimer : Timer
     {
@@ -14,7 +16,14 @@
             if(IsRunning && Time <= 0)
                 Stop();
         }
-        
+
+        public override async UniTask Wait()
+        {
+            IsRunning = true;
+            await UniTask.WaitForSeconds(_initialTime);
+            Stop();
+        }
+
         public bool IsFinished => Time <= 0;
         public void Reset() => Time = _initialTime;
         public void Reset(float newTime) 
