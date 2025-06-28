@@ -1,4 +1,5 @@
-﻿using Cysharp.Threading.Tasks;
+﻿using System.Threading;
+using Cysharp.Threading.Tasks;
 
 namespace Yonii.Unity.Utilities.Timers
 {
@@ -17,10 +18,10 @@ namespace Yonii.Unity.Utilities.Timers
                 Stop();
         }
 
-        public override async UniTask Wait()
+        public override async UniTask Wait(CancellationTokenSource cts)
         {
             IsRunning = true;
-            await UniTask.WaitForSeconds(_initialTime);
+            await UniTask.WaitForSeconds(_initialTime, cancellationToken: cts.Token);
             Stop();
         }
 

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading;
 using Cysharp.Threading.Tasks;
 
 // ReSharper disable InconsistentNaming
@@ -54,7 +55,7 @@ namespace Yonii.Unity.Utilities.Timers
         public void Resume() => IsRunning = true;
         public void Pause() => IsRunning = false;
         public abstract void Tick(float deltaTime);
-        public abstract UniTask Wait();
+        public abstract UniTask Wait(CancellationTokenSource cts);
 
         #endregion
     }
