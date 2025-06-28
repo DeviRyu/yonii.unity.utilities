@@ -42,5 +42,9 @@ namespace Yonii.Unity.Utilities
                 .Where(t => t
                     .GetInterfaces()
                     .Contains(type));
+        
+        public static IEnumerable<string> GetImplementingTypeNames(this Type type) =>
+            type.GetImplementingTypes()
+                .Select(t => t.Name);
     }
 }
