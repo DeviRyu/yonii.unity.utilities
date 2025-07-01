@@ -1,4 +1,5 @@
 ﻿using System;
+using Cysharp.Threading.Tasks;
 using UnityEngine.UIElements;
 using UnityEngine.UIElements.Experimental;
 
@@ -6,6 +7,22 @@ namespace Yonii.Unity.Utilities
 {
     public static class VisualElementExtensions
     {
+        public static UniTask FadeAsync(this VisualElement visualElement, 
+                                              int startOpacityValue = 0,
+                                              int endOpacityValue = 1,
+                                              int durationMs = 300)
+        {
+            var tsk = new UniTaskCompletionSource();
+
+            visualElement.Fade(startOpacityValue,
+                               endOpacityValue,
+                               durationMs,
+                               () => tsk.TrySetResult()
+                               );
+
+            return tsk.Task;
+        }
+        
         public static void Fade(this VisualElement visualElement,
                                 int startOpacityValue = 0,
                                 int endOpacityValue = 1,
