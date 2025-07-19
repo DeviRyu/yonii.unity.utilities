@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading;
 using Cysharp.Threading.Tasks;
 using UnityEngine.UIElements;
 using UnityEngine.UIElements.Experimental;
@@ -10,27 +11,56 @@ namespace Yonii.Unity.Utilities
         public static UniTask FadeAsync(this VisualElement visualElement, 
                                               int startOpacityValue = 0,
                                               int endOpacityValue = 1,
-                                              int durationMs = 300)
+                                              int durationMs = 300,
+                                              CancellationToken cancellationToken = default)
         {
             var tsk = new UniTaskCompletionSource();
+            
+            var completed = false;
 
-            visualElement.Fade(startOpacityValue,
-                               endOpacityValue,
-                               durationMs,
-                               () => tsk.TrySetResult()
-                               );
+            var animation = visualElement.Fade(startOpacityValue,
+                                               endOpacityValue,
+                                               durationMs,
+                                               OnFinish
+                );
+            
+            if (cancellationToken.CanBeCanceled)
+            {
+                cancellationToken.Register(() =>
+                {
+                    CompleteIfNotDone(() =>
+                    {
+                        animation.Stop();
+                        // visualElement.style.opacity = visualElement.resolvedStyle.opacity;
+                        tsk.TrySetCanceled();
+                    });
+                });
+            }
 
             return tsk.Task;
+
+            void CompleteIfNotDone(Action operation)
+            {
+                if (completed)
+                {
+                    return;
+                }
+
+                completed = true;
+                operation();
+            }
+
+            void OnFinish() => CompleteIfNotDone(() => tsk.TrySetResult());
         }
-        
-        public static void Fade(this VisualElement visualElement,
-                                int startOpacityValue = 0,
-                                int endOpacityValue = 1,
-                                int durationMs = 300,
-                                Action onFinish = null
+
+        public static IValueAnimation Fade(this VisualElement visualElement,
+                                           int startOpacityValue = 0,
+                                           int endOpacityValue = 1,
+                                           int durationMs = 300,
+                                           Action onFinish = null
             )
         {
-            visualElement.experimental.animation.Start(
+            return visualElement.experimental.animation.Start(
                     new StyleValues { opacity = startOpacityValue },
                     new StyleValues { opacity = endOpacityValue },
                     durationMs: durationMs
