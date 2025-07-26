@@ -9,11 +9,32 @@ namespace Yonii.Unity.Utilities
 {
     public static class VisualElementExtensions
     {
-        public static UniTask FadeAsync(this VisualElement visualElement, 
-                                              int startOpacityValue = 0,
-                                              int endOpacityValue = 1,
-                                              int durationMs = 300,
+        public static async UniTask FadeAsync(this VisualElement element,
+                                              float from,
+                                              float to,
+                                              float durationSeconds,
                                               CancellationToken cancellationToken = default)
+        {
+            var elapsed = 0f;
+            while (elapsed < durationSeconds)
+            {
+                if (cancellationToken.IsCancellationRequested)
+                    return;
+
+                var t = elapsed / durationSeconds;
+                element.style.opacity = Mathf.Lerp(from, to, t);
+                await UniTask.Yield(PlayerLoopTiming.Update);
+                elapsed += Time.deltaTime;
+            }
+
+            element.style.opacity = to;
+        }
+        
+        public static UniTask FadeAsync(this VisualElement visualElement, 
+                                        int startOpacityValue = 0,
+                                        int endOpacityValue = 1,
+                                        int durationMs = 300,
+                                        CancellationToken cancellationToken = default)
         {
             var tsk = new UniTaskCompletionSource();
             
@@ -92,9 +113,9 @@ namespace Yonii.Unity.Utilities
         }
         
         public static async UniTask ScaleAsync(this VisualElement element,
-                                                float from = 1f,
-                                                float to = 0f,
-                                                float duration = .2f)
+                                               float from = 1f,
+                                               float to = 0f,
+                                               float duration = .2f)
         {
             var elapsed = 0f;
             while (elapsed < duration)
